@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Maintenance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Agriculture Maintenance System</h1>
+        <p>Enter details to generate a maintenance report for your crop.</p>
+
+        <form method="POST">
+            <label for="crop_type">Crop Type:</label>
+            <input type="text" name="crop_type" id="crop_type" placeholder="e.g., Wheat, Rice" required>
+
+            <label for="seed_type">Seed Type:</label>
+            <input type="text" name="seed_type" id="seed_type" placeholder="e.g., Hybrid, Organic" required>
+
+            <label for="stage">Growth Stage:</label>
+            <select name="stage" id="stage" required>
+                <option value="Germination">Germination</option>
+                <option value="Seedling">Seedling</option>
+                <option value="Vegetative">Vegetative</option>
+                <option value="Flowering">Flowering</option>
+                <option value="Fruiting">Fruiting</option>
+            </select>
+
+            <label for="days">Days Since Planting:</label>
+            <input type="number" name="days" id="days" placeholder="e.g., 30" required>
+
+            <label for="health">Health Condition:</label>
+            <input type="text" name="health" id="health" placeholder="e.g., Healthy, Needs Fertilizer" required>
+
+            <button type="submit">Generate Report</button>
+        </form>
+
+        {% if report %}
+        <div class="report">
+            <h2>Generated Report</h2>
+            <p><strong>Crop Type:</strong> {{ report["Crop Type"] }}</p>
+            <p><strong>Seed Type:</strong> {{ report["Seed Type"] }}</p>
+            <p><strong>Stage:</strong> {{ report["Stage"] }}</p>
+            <p><strong>Days Since Planting:</strong> {{ report["Days Since Planting"] }}</p>
+            <p><strong>Health Condition:</strong> {{ report["Health Condition"] }}</p>
+            <p><strong>Maintenance Steps:</strong> {{ report["Maintenance Steps"] }}</p>
+            <p><strong>Generated On:</strong> {{ report["Generated On"] }}</p>
+
+            <a href="{{ url_for('download_report') }}" class="download-btn">Download Report</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
